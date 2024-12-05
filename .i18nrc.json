@@ -1,0 +1,7 @@
+{
+  "prefix": "cs598",
+  "paths": {
+    "cs598": "."
+  },
+  "translations": ["translations/ja-JP.json"]
+}

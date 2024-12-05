@@ -1,0 +1,17 @@
+{
+  "id": "cs598",
+  "version": "1.0.0",
+  "kibanaVersion": "kibana",
+  "owner": {
+    "name": "Alex Badia",
+    "githubTeam": ""
+  },
+  "description": "",
+  "server": true,
+  "ui": true,
+  "requiredPlugins": [ 
+    "esUiShared", 
+    "navigation"
+  ],
+  "optionalPlugins": []
+}
