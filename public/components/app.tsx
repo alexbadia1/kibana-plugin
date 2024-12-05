@@ -16,6 +16,12 @@ import { PLUGIN_ID, PLUGIN_NAME } from '../../common';
 // My Plugin
 import { Graph } from './Diagram/Graph';
 
+
+const EuiPageTemplateCssStyles = {
+  paddingTop: 0,
+  minBlockSize: "max(460px, calc(100vh - var(--euiFixedHeadersOffset, 96px)))"
+}
+
 interface Cs598AppDeps {
   basename: string;
   notifications: CoreStart['notifications'];
@@ -27,7 +33,7 @@ export const Cs598App = ({ basename, notifications, http, navigation }: Cs598App
   // Render the application DOM.
   // Note that `navigation.ui.TopNavMenu` is a stateful component exported on the `navigation` plugin's start contract.
   return (
-    <EuiPageTemplate restrictWidth="1000px" style={{paddingTop: 0}}>
+    <EuiPageTemplate restrictWidth="1000px" style={EuiPageTemplateCssStyles}>
       <EuiPageTemplate.Sidebar>
         <EuiTitle size="l">
           <h1>

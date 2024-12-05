@@ -42,19 +42,12 @@ export interface IGraphNode {
   id: string;
   type: NodeType;
   position: XYPosition;
-  data: IGraphNodeData;
+  data: GraphNodeData;
 }
 
-export interface IGraphNodeData {
+export interface GraphNodeData {
   label: string;
-  category: string;
-  service: string;
-}
-
-export interface IGraphDragData {
-  type: NodeType;
-  category: string;
-  service: string;
+  styles?: React.CSSProperties;
 }
 
 export interface IGraphEdge {

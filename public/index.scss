@@ -1,3 +1,16 @@
+:root {
+  --kibana-red: #f04e98;
+  --kibana-green: #00bfb3;
+  --kibana-blue: #07c;
+  --kibana-yellow: #fec514;
+}
+
 .react-flow__attribution {
   display: none;
+}
+
+.node {
+  color: white;
+  padding: 2px 4px;
+  border: 1px solid black;
 }
