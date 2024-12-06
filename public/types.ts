@@ -9,3 +9,9 @@ export interface Cs598PluginStart {}
 export interface AppPluginStartDependencies {
   navigation: NavigationPublicPluginStart;
 }
+
+export interface AlertsSearchQuery {
+  page: number;
+  pageSize: number;
+  searchQuery: string;
+}

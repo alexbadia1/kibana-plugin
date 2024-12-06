@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
+
+// External libraries
 import { Handle, HandleType, NodeProps, Position } from 'react-flow-renderer';
+
+// My libraries
 import { GraphNodeData } from '../../../common/model';
 
 interface FancyHandleProps {
@@ -31,7 +35,8 @@ export function Node({ id, data }: NodeProps<GraphNodeData>) {
   const [hideHandles, setHideHandles] = useState(true);
 
   const onClick = () => {
-    throw Error("Not Implemented: Please set focused node");
+    // throw Error("Not Implemented: Please set focused node");
+    return;
   };
 
   return (

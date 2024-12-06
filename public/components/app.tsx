@@ -1,25 +1,41 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React from 'react';
 
-// Default External Plugin Dependencies
-import { i18n } from '@kbn/i18n';
-import { FormattedMessage, I18nProvider } from '@kbn/i18n-react';
-import { BrowserRouter as Router } from '@kbn/shared-ux-router';
-import { EuiButton, EuiHorizontalRule, EuiPageTemplate, EuiTitle, EuiText, EuiFlexGroup, EuiIcon } from '@elastic/eui';
+// Kibana libraries
+import { EuiHorizontalRule, EuiPageTemplate, EuiTitle } from '@elastic/eui';
 import type { CoreStart } from '@kbn/core/public';
 import type { NavigationPublicPluginStart } from '@kbn/navigation-plugin/public';
 
-// Kibana Dependencies
-import { KibanaPageTemplate, KibanaPageTemplateProps } from '@kbn/shared-ux-page-kibana-template';
-import { EuiLoadingLogo, EuiLoadingSpinner } from '@elastic/eui';
-import { PLUGIN_ID, PLUGIN_NAME } from '../../common';
+// External libraries
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
-// My Plugin
-import { Graph } from './Diagram/Graph';
+// My libraries
+import { SearchQueryProvider } from '../context/SearchQueryProvider';
+import { WatchlistHitsProvider } from '../context/WatchlistHitsProvider';
+import { FocusedWatchlistHitProvider } from '../context/FocusedWatchlistHitProvider';
+import { Graph } from './Diagram/Graph';;
+import { SearchBar } from './WatchlistHits/SearchBar';
+import { SearchResults } from './WatchlistHits/SearchResults';
+import { EndpointEventsProvider } from '../context/EndpointEventsProvider';
+import { EndpointEventsTable } from './EndpointEvents/EndpointEventsTable';
 
 
 const EuiPageTemplateCssStyles = {
-  paddingTop: 0,
-  minBlockSize: "max(460px, calc(100vh - var(--euiFixedHeadersOffset, 96px)))"
+  'paddingTop': '0',
+  'minBlockSize': "max(460px, calc(100vh - var(--euiFixedHeadersOffset, 96px)))"
+}
+
+const EuiPageTemplateSidebarCssStyles = {
+  'display': 'flex',
+  'flexDirection': 'column',
+  'justifyContent': 'start',
+  'alignItems': 'start',
+  'maxBlockSize': "calc(100vh - var(--euiFixedHeadersOffset, 96px))"
+}
+
+const MainCssStyle = {
+  'display': 'flex',
+  'flexDirection': 'column',
+  'height': 'calc(100vh - var(--euiFixedHeadersOffset, 96px))'
 }
 
 interface Cs598AppDeps {
@@ -27,34 +43,34 @@ interface Cs598AppDeps {
   notifications: CoreStart['notifications'];
   http: CoreStart['http'];
   navigation: NavigationPublicPluginStart;
+  queryClient: QueryClient;
 }
 
-export const Cs598App = ({ basename, notifications, http, navigation }: Cs598AppDeps) => {
-  // Render the application DOM.
-  // Note that `navigation.ui.TopNavMenu` is a stateful component exported on the `navigation` plugin's start contract.
+export const Cs598App = ({ basename, notifications, http, navigation, queryClient }: Cs598AppDeps) => {
   return (
-    <EuiPageTemplate restrictWidth="1000px" style={EuiPageTemplateCssStyles}>
-      <EuiPageTemplate.Sidebar>
-        <EuiTitle size="l">
-          <h1>
-            <FormattedMessage
-              id="cs598.helloWorldText"
-              defaultMessage="{name}"
-              values={{ name: "Alerts" }}
-            />
-          </h1>
-        </EuiTitle>
-      </EuiPageTemplate.Sidebar>
-      <Graph />
-      <EuiHorizontalRule />
-      <EuiTitle>
-        <h2>
-          <FormattedMessage
-            id="cs598.congratulationsTitle"
-            defaultMessage="Alert #xxx"
-          />
-        </h2>
-      </EuiTitle>
-    </EuiPageTemplate>
+    <QueryClientProvider client={queryClient}>
+      <SearchQueryProvider>
+        <WatchlistHitsProvider http={http}>
+          <FocusedWatchlistHitProvider>
+              <EndpointEventsProvider http={http}>
+                <EuiPageTemplate restrictWidth="1000px" style={EuiPageTemplateCssStyles}>
+                  <EuiPageTemplate.Sidebar style={EuiPageTemplateSidebarCssStyles}>
+                    <EuiTitle size="l">
+                      <h5 style={{fontSize: 16}}> Alerts </h5>
+                    </EuiTitle>
+                    <SearchBar />
+                    <SearchResults />
+                  </EuiPageTemplate.Sidebar>
+                  <div style={MainCssStyle}>
+                    <Graph />
+                    <EuiHorizontalRule />
+                    <EndpointEventsTable />
+                  </div>
+                </EuiPageTemplate>
+            </EndpointEventsProvider>
+          </FocusedWatchlistHitProvider>
+        </WatchlistHitsProvider>
+      </SearchQueryProvider>
+    </QueryClientProvider>
   );
 };

@@ -1,11 +1,7 @@
-export const SEARCH_PRODUCT_NAME = 'Search';
+export const BASE_URL = "/api/cs598";
 
-export const CS5988_CONTENT_PLUGIN = {
-  ID: 'enterpriseSearchContent',
-  NAME: SEARCH_PRODUCT_NAME,
-  NAV_TITLE: 'Content',
-  DESCRIPTION: 'Enterprise search offers a number of ways to easily make your data searchable. Choose from the web crawler, Elasticsearch indices, API, direct uploads, or thrid party connectors.',
-  URL: '/app/enterprise_search/content',
-  LOGO: 'logoEnterpriseSearch',
-  SUPPORT_URL: 'https://discuss.elastic.co/c/enterprise-search/',
-};
+export const WATCHLIST_HITS_ENDPOINT = BASE_URL + "/alerts";
+export const WATCHLIST_HITS_PAGE_SIZE = 100;
+
+export const ENDPOINT_EVENTS_ENDPOINT = BASE_URL + "/search";
+export const ENDPOINT_EVENTS_PAGE_SIZE = 10000;

@@ -1,4 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
+
+// External libraries
 import ReactFlow, { 
   Background, 
   BackgroundVariant, 
@@ -6,6 +8,7 @@ import ReactFlow, {
   applyNodeChanges 
 } from 'react-flow-renderer';
 
+// My libraries
 import { Node } from './Node';
 import { GraphNodeData } from '../../../common/model';
 
@@ -13,8 +16,7 @@ const reactflowwrapper_css_style = {
   width: "100%",
   height: "100%",
   minHeight: 300,
-  maxHeight: "42vh",
-  zIndex: 99999999
+  maxHeight: "30vh"
 };
 
 const initialNodes = [
