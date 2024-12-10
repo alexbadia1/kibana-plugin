@@ -44,7 +44,8 @@ export function defineRoutes(router: IRouter) {
             query: {
               prefix: {
                 "carbon_black_cloud.watchlist_hit.report.name": {
-                  value: searchquery
+                  value: searchquery,
+                  "case_insensitive": true
                 }
               }
             },
